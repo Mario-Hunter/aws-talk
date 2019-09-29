@@ -28,6 +28,7 @@
         "fzaninotto/faker": "1.8.0",
         "laravel/telescope": "2.1",
         "mockery/mockery": "1.2.3",
+        "mpociot/laravel-apidoc-generator": "^3.17",
         "phpunit/phpunit": "8.3.5"
     },
     "autoload": {
