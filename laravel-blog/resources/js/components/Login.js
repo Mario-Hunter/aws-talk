@@ -5,28 +5,55 @@ export default class Login extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
+        	token: ""
         }
     }
 	
 	submit =()=>{
 		let {email, password} = this.state;
-		console.log(email, password)
 
-        let url = `http://localhost:8000/api/v1/authenticate`;
-        fetch(url, {
-            method: 'POST',
-            headers:{
-                "Accept": "application/json",
-            }, 
-            body:{
-            	email, password
-            }
-        }).then(function(response) {
-        	console.log(response)
-            return response.json();
-        }).then((myJson)=> {
-            console.log(myJson)
-        });
+        // let url = `http://localhost:8000/api/v1/authenticate`;
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers:{
+        //         "Accept": "application/json",
+        //         "cache-control": "no-cache"
+        //     }, 
+        //     data:{
+        //     	email: email,
+        //     	password: password
+        //     }
+        // }).then(function(response) {
+        // 	console.log(response)
+        //     return response.json();
+        // }).then((myJson)=> {
+        //     console.log(myJson)
+        // });
+
+        var data = new FormData();
+		data.append("email", email);
+		data.append("password", password);
+
+		var xhr = new XMLHttpRequest();
+		xhr.withCredentials = true;
+
+		xhr.addEventListener("readystatechange", function () {
+		  if (this.readyState === 4) {
+		  	// this.setState({to})
+		  	let res = JSON.parse(this.response);
+		  	let id = res.data.id
+		  	let token = res.meta.access_token;
+		    window.localStorage.setItem("id",id);
+		    window.localStorage.setItem("token",token);
+		    document.location.reload();
+		  }
+		});
+
+		xhr.open("POST", "http://localhost:8000/api/v1/authenticate");
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.setRequestHeader("cache-control", "no-cache");
+
+		xhr.send(data);
 	}
 
 	render(){
