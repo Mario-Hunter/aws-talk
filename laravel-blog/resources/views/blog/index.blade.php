@@ -17,26 +17,23 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-light">
-     <div id="app">
-        @include('shared/navbar')
+     <div>
+
 
         <div class="container">
-            @include('shared/alerts')
 
             <div class="row">
                 <div class="col-md-12">
-                    @yield('content')
+                        <div id="example"></div>
                 </div>
             </div>
         </div>
 
-        @include('shared/footer')
     </div>
 
     <!-- Scripts -->
     @stack('inline-scripts')
 
-    <div id="example"></div>
     <script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>
