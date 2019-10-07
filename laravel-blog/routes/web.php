@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', 'PostController@index')->name('home');
+Route::get('/old', 'PostController@index')->name('home');
+Route::get('/', function(){
+        return view('blog.index');
+})->name('home');
 Route::get('/posts/feed', 'PostFeedController@index')->name('posts.feed');
 Route::resource('posts', 'PostController')->only('show');
 Route::resource('users', 'UserController')->only('show');
