@@ -4,10 +4,26 @@ import Login from './Login.js';
 import Blog from './Blog.js'
 
 export default class Example extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            token: ""
+        }
+    }
+    componentWillMount =()=>{
+        let token = window.localStorage.getItem('token');
+
+        this.setState({token})
+    }
     render() {
+        let {token} = this.state;
         return (
             <div className="container">
-                <Login/>
+                {token ?
+                    <Blog/>
+                    :
+                    <Login/>
+                }
             </div>
         );
     }
